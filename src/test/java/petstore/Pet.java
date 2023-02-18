@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 // 3 - Classe
 public class Pet {
@@ -42,10 +43,12 @@ String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade Pet
                 .post(uri) //realizar a requisição na uri informada
         .then()// Então
                 .log().all() // incluindo log total
-                .statusCode(200);  // validando status code 200 no retorno
+                .statusCode(200)  // validando status code 200 no retorno
+                .body("name", is("Snoopy")) // Validando que no response body, tem um atributo nome com o vlor Snoopy
+                .body("status", is("available")) // Validando que no response body, o status está como disponível
 
 
-
+        ;
 
 
     }
