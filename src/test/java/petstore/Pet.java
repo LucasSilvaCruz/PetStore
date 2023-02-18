@@ -3,13 +3,12 @@ package petstore;
 
 // 2 - Bibliotecas
 import org.testng.annotations.Test;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 
 // 3 - Classe
 public class Pet {
@@ -44,12 +43,16 @@ String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade Pet
         .then()// Então
                 .log().all() // incluindo log total
                 .statusCode(200)  // validando status code 200 no retorno
-                .body("name", is("Snoopy")) // Validando que no response body, tem um atributo nome com o vlor Snoopy
+                .body("name", is("Simba")) // Validando que no response body, tem um atributo nome com o vlor Snoopy
                 .body("status", is("available")) // Validando que no response body, o status está como disponível
+                .body("category.name", is("dog"))
+                .body("tags.name", contains("Treino REST assured"))
+         ;
 
 
-        ;
+    }
 
+    public void consultarPet(){
 
     }
 
