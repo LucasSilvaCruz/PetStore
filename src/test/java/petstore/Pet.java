@@ -101,6 +101,30 @@ String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade para 
 
          ;
 
+
+
     }
+
+    @Test(priority = 4)
+    public void deletarPet() {
+
+        String petId = "13122016";
+
+        given()
+                .log().all()
+                .contentType("application/Json")
+        .when()
+                .log().all()
+                .delete(uri + "/" + petId)
+
+
+        .then()
+                .log().all()
+                .statusCode(200)
+                .body("code", is(200))
+                .body("message", is(petId))
+        ;
+    }
+
 
 }
