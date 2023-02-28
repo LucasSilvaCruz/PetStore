@@ -16,10 +16,10 @@ public class Pet {
 
 // 3.1 Atributos
 String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade para cadastrar PET
-
+Integer petId;
 
 //3.2 Métodos e Funções
-    public String lerJson(String caminhoJson) throws IOException {
+    public static String lerJson(String caminhoJson) throws IOException {
 
         //caminhoJson = "C:\\Projetos\\PetStore\\db\\pet1.Json";
         return new String(Files.readAllBytes(Paths.get(caminhoJson)));
@@ -36,7 +36,7 @@ String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade para 
         // DADO - QUANDO - ENTÃO
         // Given - When - Then
 
-        given()// Dado
+       petId =  given()// Dado
                 .contentType("application/json") // comuns em apis REST - antigas text/xml
                 .log().all() // incluindo log total
                 .body(jsonBody) // incluindo no body da requisição, o arquivo carregado na variável jsonBody
@@ -49,18 +49,19 @@ String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade para 
                 .body("status", is("available")) // Validando que no response body, o status está como disponível
                 .body("category.name", is("dog"))
                 .body("tags.name", contains("Treino REST assured"))
-
+                .extract()
+                    .path("id")
 
          ;
 
+        System.out.println(petId);
 
     }
 
     @Test(priority = 2)
-    public void consultarPet(){
+    public void consultarPet() {
 
         String petId = "13122016";
-
         given()
                 .contentType("application/Json")
                 .log().all()
@@ -109,7 +110,6 @@ String uri = "https://petstore.swagger.io/v2/pet"; //Endereço da entidade para 
     public void deletarPet() {
 
         String petId = "13122016";
-
         given()
                 .log().all()
                 .contentType("application/Json")
