@@ -2,12 +2,14 @@ package support.dominio;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-@Data // lombok cria automaticamente os get,set...
+@Getter
+@Setter // lombok cria automaticamente os get,set...
 @Builder // gerando uma instancia desse usuário
 public class User {
 
